@@ -16,7 +16,7 @@ from sdk import UcloudApiClient
 from config import *
 
 
-def create(tag, name,cpu='1',memory=2,password='GYvyVRoNGXKI',imageId="uimage-x1yary",uhostType='Normal',diskSpace='50'):
+def create(tag=None, name=None,password='dangerous',cpu='1',memory=2,diskSpace='50',imageId="uimage-x1yary",uhostType='Normal'):
     ApiClient = UcloudApiClient(base_url, public_key, private_key)
     Parameters = {
         "Action": "CreateUHostInstance",
@@ -106,7 +106,7 @@ def reboot(ip,check=False):
 
 
 
-def ReinstallUHostInstance(ip,password='GYvyVRoNGXKI'):
+def ReinstallUHostInstance(ip,password='dangerous'):
     host=get(ip=ip)
     stop(ip,check=True)
     ApiClient = UcloudApiClient(base_url, public_key, private_key)
