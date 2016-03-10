@@ -16,7 +16,7 @@ from sdk import UcloudApiClient
 from config import *
 
 
-def create(tag=None, name=None,password='dangerous',cpu='1',memory=2,diskSpace='50',imageId="uimage-x1yary",uhostType='Normal'):
+def create(tag=None, name=None,password='dangerous',cpu='1',memory=2,diskSpace='50',imageId="uimage-j4fbrn",uhostType='Normal'):
     ApiClient = UcloudApiClient(base_url, public_key, private_key)
     Parameters = {
         "Action": "CreateUHostInstance",
@@ -74,7 +74,7 @@ def stop(ip,check=False):
     }
     response = ApiClient.get("/", Parameters);
     if check:
-        checkStatus(ip,'Stopping')
+        checkStatus(ip,'Stopped')
 
     print json.dumps(response, sort_keys=True, indent=4, separators=(',', ': '))
 
@@ -87,8 +87,9 @@ def checkStatus(ip,status='Running'):
     for i in range(120):
             host=get(ip=ip)
             time.sleep(1)
+            print host['State']
             if status in host['State']:
-                break
+                return
     exit(1)
 def reboot(ip,check=False):
     host=get(ip=ip)
