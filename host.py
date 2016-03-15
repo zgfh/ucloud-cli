@@ -37,7 +37,7 @@ def create(tag=None, name=None,password='dangerous',cpu='1',memory=2,diskSpace='
     for i in range(120):
         time.sleep(1)
         host=get(name)
-        if host and 'IPSet' in host and 'IP' in host['IPSet'][0] : #and 'Running' in host['State']
+        if host and 'IPSet' in host and 'IP' == host['IPSet'][0] : #and 'Running' in host['State']
             print host['IPSet'][0]['IP']
             return host
     raise TypeError("can not get host info")
@@ -47,6 +47,7 @@ def get_all():
     Parameters = {
         "Action": "DescribeUHostInstance",
         "Region": region,
+        "Limit": '100000'
     }
     response = ApiClient.get("/", Parameters);
 
@@ -58,10 +59,12 @@ def get(host_name='',ip=''):
     Parameters={
                 "Action":"DescribeUHostInstance",
                 "Region": region,
+                "Limit": '100000'
                }
     hosts = ApiClient.get("/", Parameters)
+
     for host in hosts['UHostSet']:
-        if host_name == host['Name'] or ip ==host['IPSet'][0]['IP']:
+        if host_name == host['Name'] or ip in host['IPSet'][0]['IP']:
             return host
 
 def stop(ip,check=False):
@@ -78,6 +81,20 @@ def stop(ip,check=False):
 
     print json.dumps(response, sort_keys=True, indent=4, separators=(',', ': '))
 
+def poweroff(ip,check=False):
+    host=get(ip=ip)
+
+    ApiClient = UcloudApiClient(base_url, public_key, private_key)
+    Parameters = {
+        "Action": "PoweroffUHostInstance",
+        "Region": region,
+        "UHostId":host['UHostId']
+    }
+    response = ApiClient.get("/", Parameters);
+    if check:
+        checkStatus(ip,'Stopped')
+
+    print json.dumps(response, sort_keys=True, indent=4, separators=(',', ': '))
 
 """
 status :Running ,Stopping
@@ -107,15 +124,16 @@ def reboot(ip,check=False):
 
 
 
-def ReinstallUHostInstance(ip,password='dangerous'):
+def ReinstallUHostInstance(ip,password='dangerous',imageId='uimage-j4fbrn'):
     host=get(ip=ip)
-    stop(ip,check=True)
+    poweroff(ip,check=True)
     ApiClient = UcloudApiClient(base_url, public_key, private_key)
     Parameters = {
         "Action": "ReinstallUHostInstance",
         "Region": region,
         "UHostId": host['UHostId'],
-        "Password": base64.b64encode(password)
+        "Password": base64.b64encode(password),
+        "ImageId": imageId
     }
     response = ApiClient.get("/", Parameters);
 
