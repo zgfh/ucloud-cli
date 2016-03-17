@@ -7,13 +7,28 @@
 @contact: zg.zhu@daocloud.io
 @time: 16/3/10 下午1:02
 """
+
+
+
 import host
 import sys
 
 if __name__ == '__main__':
     arg_length = len(sys.argv)
     if arg_length < 2:
-        print "\"tag='test',name='test',password='dangerous',cpu='1',memory=2,diskSpace='50',imageId='uimage-x1yary',uhostType='Normal'\" \neg:  "+sys.argv[0]+ " \"'test','test',password='dangerous'\" "
+        print """
+           ./host.create.py tag name password cpu momory diskSpace imageId uhostType
+        eg:
+            ./host.create.py test test dangerous 1 2 100
+            ./host.create.py test test2 dangerous 2 4 100 uimage-x1yary SATA_SSD
+
+        option
+        imageId:
+           uimage-x1yary: ubuntu14.04
+
+        uhostType:
+            Normal,SATA_SSD,BigData
+        """
         exit(1)
 
-    eval ("host.create("+sys.argv[1]+")")
+    host.create(*sys.argv[1:])
