@@ -37,7 +37,7 @@ def create(tag=None, name=None,password='dangerous',cpu='1',memory=2,diskSpace='
     for i in range(120):
         time.sleep(1)
         host=get(name)
-        if host and 'IPSet' in host and 'IP' == host['IPSet'][0] : #and 'Running' in host['State']
+        if host and 'IPSet' in host or 'IP' == host['IPSet'][0] : #and 'Running' in host['State']
             print host['IPSet'][0]['IP']
             return host
     raise TypeError("can not get host info")
@@ -154,6 +154,7 @@ def delete(ip):
     print json.dumps(response, sort_keys=True, indent=4, separators=(',', ': '))
 
 if __name__ == '__main__':
+    #create('test','test','dangerous',2,4,200)
     pass
 
 
