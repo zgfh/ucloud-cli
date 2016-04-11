@@ -13,7 +13,7 @@ import sys
 if __name__ == '__main__':
     arg_length = len(sys.argv)
     if arg_length < 3:
-        print "eg: "+sys.argv[0]+ " password ip \neg:  "+sys.argv[0]+ "  10.10.10.10"
+        print "eg: "+sys.argv[0]+ " password ip \neg:  "+sys.argv[0]+ " dangerous  10.10.10.10"
         exit(1)
     #print  sys.argv
     for ip in sys.argv[2:]:
