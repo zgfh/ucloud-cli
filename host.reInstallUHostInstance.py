@@ -11,10 +11,13 @@ import host
 import sys
 
 if __name__ == '__main__':
+    imageId="uimage-j4fbrn"
     arg_length = len(sys.argv)
     if arg_length < 3:
-        print "eg: "+sys.argv[0]+ " password ip \neg:  "+sys.argv[0]+ " dangerous  10.10.10.10"
+        print "eg: "+sys.argv[0]+ " password ip image_id\neg:  "+sys.argv[0]+ " dangerous  10.10.10.10 uimage-j4fbrn"
         exit(1)
+    if arg_length >=4:
+        imageId=sys.argv[3]
     #print  sys.argv
     for ip in sys.argv[2:]:
-        host.ReinstallUHostInstance(ip,password=sys.argv[1])
+        host.ReinstallUHostInstance(ip,password=sys.argv[1],imageId=imageId)
