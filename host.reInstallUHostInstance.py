@@ -7,7 +7,7 @@
 @contact: zg.zhu@daocloud.io
 @time: 16/3/10 下午1:02
 """
-import host
+import host_utils
 import sys
 
 if __name__ == '__main__':
@@ -20,4 +20,4 @@ if __name__ == '__main__':
         imageId=sys.argv[3]
     #print  sys.argv
     for ip in sys.argv[2:]:
-        host.ReinstallUHostInstance(ip,password=sys.argv[1],imageId=imageId)
+        host_utils.ReinstallUHostInstance(ip, password=sys.argv[1], imageId=imageId)
