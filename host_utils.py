@@ -113,9 +113,10 @@ def checkStatus(ip, status='Running'):
     host = get(ip=ip)
     for i in range(120):
         host = get(ip=ip)
-        print host['State']
-        if status in host['State']:
-            return
+        if  host and 'State' in host:
+            print host['State']
+            if status in host['State']:
+                return
         time.sleep(1)
     exit(1)
 
