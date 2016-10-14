@@ -19,6 +19,7 @@ from config import *
 def create(tag=None, name=None, password='dangerous', cpu='1', memory=2, diskSpace='50', imageId="uimage-j4fbrn",
            uhostType='Normal'):
     ApiClient = UcloudApiClient(base_url, public_key, private_key)
+    print tag,name,password,cpu,memory,diskSpace,imageId
     Parameters = {
         "Action": "CreateUHostInstance",
         "Region": region,

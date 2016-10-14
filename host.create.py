@@ -20,11 +20,13 @@ if __name__ == '__main__':
            ./host.create.py tag name password cpu momory diskSpace imageId uhostType
         eg:
             ./host.create.py test test dangerous 1 2 100
-            ./host.create.py test test2 dangerous 2 4 100 uimage-x1yary SATA_SSD
+            ./host.create.py test test2 dangerous 2 4 100 uimage-j4fbrn SATA_SSD
 
         option
         imageId:
-           uimage-x1yary: ubuntu14.04
+           c :
+           uimage-j4fbrn: ubuntu14.04 64
+           uimage-uww15s: CentOS 7.2 64
 
         uhostType:
             Normal,SATA_SSD,BigData
