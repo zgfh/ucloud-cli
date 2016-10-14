@@ -17,4 +17,4 @@ if __name__ == '__main__':
         exit(1)
     #print  sys.argv
     for ip in sys.argv[1:]:
-        host_utils.stop(ip)
+        host_utils.delete(ip)

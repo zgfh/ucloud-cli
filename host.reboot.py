@@ -7,7 +7,7 @@
 @contact: zg.zhu@daocloud.io
 @time: 16/3/10 下午1:02
 """
-import host
+import host_utils
 import sys
 
 if __name__ == '__main__':
@@ -17,4 +17,4 @@ if __name__ == '__main__':
         exit(1)
     #print  sys.argv
     for ip in sys.argv[1:]:
-        host.reboot(ip)
+        host_utils.reboot(ip)
