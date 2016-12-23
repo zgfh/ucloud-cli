@@ -15,28 +15,48 @@ from sdk import UcloudApiClient
 
 from config import *
 
+def getImage(ImageType="Base"):
+    ApiClient = UcloudApiClient(base_url, public_key, private_key)
+    Parameters = {
+        "Action": "DescribeImage",
+        "Region": region,
+        "Zone":zone,
+        "ImageType": ImageType,
+        "OsType": 'Linux',
+        "Offset": 0,
+        "Limit": 1000,
+        "ProjectId":project_id
+    }
+    response = ApiClient.get("/", Parameters)
+    if 0 != response['RetCode']:
+        print response
+        exit(1)
 
-def create(tag=None, name=None, password='dangerous', cpu='1', memory=2, diskSpace='50', imageId="uimage-j4fbrn",
-           uhostType='Normal'):
+    print response
+
+def create(tag=None, name=None, password='dangerous', cpu='1', memory=2, diskSpace=50, imageId="uimage-j4fbrn",
+           uhostType='Normal',StorageType='LocalDisk'):
     ApiClient = UcloudApiClient(base_url, public_key, private_key)
     Parameters = {
         "Action": "CreateUHostInstance",
         "Region": region,
+        "Zone":zone,
         "ImageId": imageId,
         "LoginMode": "Password",
         "Password": base64.b64encode(password),
         "Tag": tag,
         "CPU": cpu,
         "Memory": int(memory) * 1024,
-        "DiskSpace": diskSpace,
+        "DiskSpace": int(diskSpace),
         "Name": name,
+        "StorageType":StorageType,
         "UHostType": uhostType  # SATA_SSD ,BigData
 
     }
     response = ApiClient.get("/", Parameters)
     if 0 != response['RetCode']:
         print response
-        exec (1)
+        exit(1)
 
     for i in range(120):
         time.sleep(1)
@@ -167,5 +187,6 @@ def delete(ip):
 
 
 if __name__ == '__main__':
+    #getImage()# centos 14.04 uimage-kg0w4u  ubuntu 14.04 uimage-pbalgu
     # create('test','test','dangerous',2,4,200)
     pass
